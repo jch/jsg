@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# markdown -> html
+curl -s -H 'Content-Type: text/plain' https://api.github.com/markdown/raw -d'@-'

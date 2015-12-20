@@ -1,0 +1,49 @@
+#!/bin/bash
+#
+# Generate an html page for a given markdown source and erb layout
+set -e
+
+usage() {
+  echo 'jsg [options] <file> [<file> ...]'
+  echo
+  echo 'options'
+  echo '-d directory : Specify a optional directory to write to, uses the same name as `file`, but with an html suffix. If nothing specified outputs to stdout.'
+  echo '-l layout    : Specify a optional layout file. Content will be inserted after <!-- #content -->.'
+  echo '-v           : Verbose'
+}
+
+while getopts ':d:l:hv' flag; do
+  case "$flag" in
+    d) directory="${OPTARG}" ;;
+    l) layout="${OPTARG}" ;;
+    h)
+      usage
+      exit 1
+      ;;
+    v) verbose=0 ;;
+    *)
+      usage >&2
+      exit 1
+      ;;
+  esac
+done
+
+[[ $verbose ]] && set -x
+
+shift $(($OPTIND - 1))
+files="$@"
+if [[ ! ${#files} -gt 0 ]]; then
+  usage >&2
+  exit 1
+fi
+
+for infile in $files; do
+  if [ -n "$directory" ]; then
+    outfile=$(basename "$infile")
+    outfile="${outfile%.*}.html"
+    outfile="$directory/$outfile"
+  fi
+
+  outfile=${outfile:-/dev/stdout}
+  bin/markdown < $infile | bin/layout $layout > $outfile
+done

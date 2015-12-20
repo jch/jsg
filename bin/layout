@@ -1,0 +1,9 @@
+#!/bin/bash
+#
+# Insert stdin into given layout file after <!-- #content -->
+
+if [[ $# = 1 ]] && [[ -n $1 ]]; then
+  sed -e "/<!-- #content -->/r /dev/stdin" $1
+else
+  cat  # forward stdin to stdout
+fi
