@@ -2,6 +2,15 @@
 
 Bash static site generator supporting GitHub flavored markdown.
 
+## Usage
+
+    jsg [options] <file> [<file> ...]
+
+    options
+    -d directory : Specify a optional directory to write to, uses the same name as `file`, but with an html suffix. If nothing specified outputs to stdout.
+    -l layout    : Specify a optional layout file. Content will be inserted after `<!-- #content -->`.
+    -v           : Verbose
+
 ## Examples
 
 ```sh
