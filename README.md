@@ -18,3 +18,11 @@ jsg -d output -l layout.html src/posts/a-post.md  # output/posts/a-post.md
 
 * Follow [Google shell styleguide](https://google.github.io/styleguide/shell.xml)
 * Test with [bats](https://github.com/sstephenson/bats)
+
+```sh
+# run all tests
+$ test/bin/*
+
+# run individual test
+$ test/bin/markdown_test.sh
+```
