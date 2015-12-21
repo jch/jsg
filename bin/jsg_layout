@@ -1,9 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env ruby
 #
 # Insert stdin into given layout file after <!-- #content -->
 
-if [[ $# = 1 ]] && [[ -n $1 ]]; then
-  sed -e "/<!-- #content -->/r /dev/stdin" $1
+if template = ARGV.first
+  File.new(template).each do |line|
+    puts line.gsub /<!-- #content -->/, $stdin.read.chomp
+  end
 else
-  cat  # forward stdin to stdout
-fi
+  $stdin.each { |line| puts line }
+end
