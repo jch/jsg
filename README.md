@@ -2,11 +2,14 @@
 
 Bash static site generator supporting GitHub flavored markdown.
 
-## Usage
+## Examples
 
 ```sh
-jsg -d output -l layout.html src/index.md  # output/index.html
-jsg -d output -l layout.html src/posts/a-post.md  # output/posts/a-post.md
+# output/index.html
+$ jsg -d output -l layout.html src/index.md
+
+# output/posts/a-post.md
+$ jsg -d output/posts -l layout.html src/posts/a-post.md
 ```
 ## History
 
