@@ -45,5 +45,5 @@ for infile in $files; do
   fi
 
   outfile=${outfile:-/dev/stdout}
-  bin/jsg_markdown < $infile | bin/jsg_layout $layout > $outfile
+  jsg_markdown < $infile | jsg_layout $layout > $outfile
 done
