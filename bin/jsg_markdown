@@ -1,4 +1,6 @@
 #!/bin/bash
 
 # markdown -> html
-curl -s -H 'Content-Type: text/plain' https://api.github.com/markdown/raw -d'@-'
+# /markdown/raw endpoint is broken, using json endpoint until fixed
+ruby -rjson -e 'h = {text: $stdin.read}; puts h.to_json' \
+  | curl -s -H 'Content-Type: text/plain' https://api.github.com/markdown -d'@-'

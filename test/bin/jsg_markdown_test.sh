@@ -1,6 +1,8 @@
 #!/usr/bin/env test/bats/bin/bats
 
 @test "markdown" {
-  echo "#header" | bin/jsg_markdown | grep "<h1>"
-  [ $? -eq 0 ]
+  output=$(cat 'test/fixtures/file.md' | bin/jsg_markdown)
+  echo $output | grep '<h1>'
+  echo $output | grep '<p>paragraph one</p>'
+  echo $output | grep '<p>paragraph two</p>'
 }
