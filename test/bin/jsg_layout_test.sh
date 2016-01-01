@@ -6,8 +6,5 @@
 }
 
 @test "layout with template" {
-  template="$BATS_TMPDIR/template.html"
-  template="tmp/template.html"
-  echo 'header <!-- #content --> footer' > $template
-  echo 'body' | bin/jsg_layout $template | grep -E '^header body footer$'
+  echo 'EXPECTED' | bin/jsg_layout 'test/fixtures/test_layout.html' | grep 'EXPECTED'
 }

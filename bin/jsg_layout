@@ -3,8 +3,9 @@
 # Insert stdin into given layout file after <!-- #content -->
 
 if template = ARGV.first
+  content = $stdin.read.chomp
   File.new(template).each do |line|
-    puts line.gsub /<!-- #content -->/, $stdin.read.chomp
+    puts line.gsub /<!-- #content -->/, content
   end
 else
   $stdin.each { |line| puts line }
