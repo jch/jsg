@@ -12,6 +12,11 @@ usage() {
   echo '-v           : Verbose'
 }
 
+
+verbose=
+directory=
+layout=
+
 while getopts ':d:l:hv' flag; do
   case "$flag" in
     d) directory="${OPTARG}" ;;
