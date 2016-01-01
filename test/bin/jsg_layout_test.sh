@@ -2,7 +2,7 @@
 
 @test "layout without template" {
   echo 'foo' | bin/jsg_layout | grep -E '^foo$'
-  [ $? = 0 ]
+  [ $? -eq 0 ]
 }
 
 @test "layout with template" {
