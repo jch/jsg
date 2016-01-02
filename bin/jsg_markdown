@@ -1,17 +1,23 @@
-#!/bin/bash
+#!/usr/bin/env ruby
 # Posts stdin to GitHub's markdown API.
 #
 # jsg_markdown
 #
 # GITHUB_TOKEN if this environment variable is set, requests are authenticated to increase the API rate limit
 #
-curl_auth=
+require "json"
+require "open3"
 
-if [ -n $GITHUB_TOKEN ]; then
-  curl_auth="-H 'Authorization: token $GITHUB_TOKEN'"
-fi
+do_auth = ENV['GITHUB_TOKEN'] && ENV['GITHUB_TOKEN'].length > 0
+curl_auth = do_auth ? "-H 'Authorization: token #{ENV['GITHUB_TOKEN']}'" : ""
+curl_cmd = "curl -s -H 'Content-Type: text/plain' #{curl_auth} https://api.github.com/markdown -d'@-'"
 
 # markdown -> html
 # /markdown/raw endpoint is broken, using json endpoint until fixed
-ruby -rjson -e 'h = {text: $stdin.read}; puts h.to_json' \
-  | curl -s -H 'Content-Type: text/plain' $curl_auth https://api.github.com/markdown -d'@-'
+payload = { text: $stdin.read }.to_json
+
+stdin, stdout, stderr, thread = Open3.popen3(curl_cmd)
+stdin.puts payload
+stdin.close
+puts stdout.read
+exit thread.value.exitstatus
