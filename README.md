@@ -14,6 +14,9 @@ Bash static site generator supporting GitHub flavored markdown.
 ## Examples
 
 ```sh
+# increase GitHub Markdown API rate limit. Create personal access token with no permissions
+export JSG_TOKEN=......
+
 # output/index.html
 $ jsg -d output -l layout.html src/index.md
 

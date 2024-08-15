@@ -3,13 +3,13 @@
 #
 # jsg_markdown
 #
-# GITHUB_TOKEN if this environment variable is set, requests are authenticated to increase the API rate limit
+# JSG_TOKEN if this environment variable is set, GitHub API requests are authenticated to increase the API rate limit
 #
 require "json"
 require "open3"
 
-do_auth = ENV['GITHUB_TOKEN'] && ENV['GITHUB_TOKEN'].length > 0
-curl_auth = do_auth ? "-H 'Authorization: token #{ENV['GITHUB_TOKEN']}'" : ""
+do_auth = ENV['JSG_TOKEN'] && ENV['JSG_TOKEN'].length > 0
+curl_auth = do_auth ? "-H 'Authorization: token #{ENV['JSG_TOKEN']}'" : ""
 curl_cmd = "curl -s -H 'Content-Type: text/plain' #{curl_auth} https://api.github.com/markdown -d'@-'"
 
 # markdown -> html
